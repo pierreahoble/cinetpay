@@ -19,3 +19,7 @@ Route::get('/', function () {
 
 
 Route::get('allpay','PayController@index');
+
+
+
+Route::post('paiement','PayController@pay');

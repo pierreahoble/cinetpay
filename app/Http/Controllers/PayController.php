@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Commande;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Traits\PaiementTrait;
 
 class PayController extends Controller
 {
+    Use PaiementTrait;
     
     public function index()
     {
@@ -15,11 +18,12 @@ class PayController extends Controller
 
     public function pay(REQUEST $request)
     {
-       
+    //    return $request;
+    $transaction_id = Str::random(10);
        $marchand = array(
            'apikey'=> env('CINETPAY_APIKEY'),
            'site_id'=> env('CINETPAY_SITE_ID'),
-            "transaction_id"=> Str::random(10), //
+            "transaction_id"=> $transaction_id, //
             "amount"=> request('montant'),
             "currency"=> "XOF",
             "alternative_currency"=> "",
@@ -46,19 +50,20 @@ class PayController extends Controller
             ]
        ); 
 
-       $header =['Content-Type'=> 'application/json'];
 
-       
-       $response = Http::withHeaders($header)
-                        ->post('https://api-checkout.cinetpay.com/v2/payment',$marchand);
+       $entities = Commande::create([
+        'montant' =>request('montant'),
+        'code'=>$transaction_id,
+        'adresse'=>'MOn pays',
+        'pays' => 'TG',
+        'staut'=>'2',
+        'user_id'=>'1',
+       ]);
 
 
-            if ($response) {
-                return redirect($response->payment_url);
-            }else{
-                return redirect()->back();
-            }
+     $response = $this->payCinetPay($marchand);
 
+     return $response;
         
 
     }
