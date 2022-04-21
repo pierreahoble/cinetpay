@@ -68,6 +68,11 @@ class PayController extends Controller
 
     }
 
+    public function redirec_pay(REQUEST $request)
+    {
+        return $request;
+    }
+
 
 
 

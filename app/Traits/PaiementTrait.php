@@ -16,11 +16,11 @@ trait PaiementTrait{
 
         return $response;
 
-            if ($response) {
-                return redirect($response['payment_url']);
-            }else{
-                return redirect()->back();
-            }
+            // if ($response) {
+            //     return redirect($response['payment_url']);
+            // }else{
+            //     return redirect()->back();
+            // }
     }
 
     public function validation_traitement_job() // verification des status  des transactions

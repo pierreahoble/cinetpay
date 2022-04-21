@@ -22,4 +22,7 @@ Route::get('allpay','PayController@index');
 
 
 
-Route::post('paiement','PayController@pay');
+Route::post('paiement','PayController@pay');// redirection pour le paiement 
+
+
+Route::post('infos_paiement','PayController@redirec_pay');
