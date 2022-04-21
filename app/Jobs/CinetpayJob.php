@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 class CinetpayJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    
 
     /**
      * Create a new job instance.
